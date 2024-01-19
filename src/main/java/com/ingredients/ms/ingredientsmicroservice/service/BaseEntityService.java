@@ -6,7 +6,7 @@ public interface BaseEntityService <T extends Ingredient, D> {
 
     T save(D entity);
 
-    T findById(Long id);
+    T findById(String id);
 
     Iterable<T> findAll();
 
