@@ -1,5 +1,6 @@
 package com.ingredients.ms.ingredientsmicroservice.response;
 
+import com.ingredients.ms.ingredientsmicroservice.response.exception.NotFoundInDatabase;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -33,4 +34,15 @@ public class GlobalExceptionHandler {
                 .data(validationErrors)
                 .build());
     }
+
+    @ExceptionHandler(NotFoundInDatabase.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public ResponseEntity<HttpResponse> handleNotFoundInDatabase(NotFoundInDatabase ex) {
+        HttpResponse response = HttpResponse.builder()
+                .timestamp(now().toString())
+                .message(ex.getMessage())
+                .build();
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
+    }
+
 }
