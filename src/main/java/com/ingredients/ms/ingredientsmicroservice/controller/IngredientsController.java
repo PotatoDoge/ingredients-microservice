@@ -1,5 +1,8 @@
 package com.ingredients.ms.ingredientsmicroservice.controller;
 
+import com.ingredients.ms.ingredientsmicroservice.dto.IngredientDto;
+import jakarta.validation.Valid;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -16,15 +19,10 @@ public class IngredientsController {
         return "One ingredient";
     }
 
-    @GetMapping("{ingredientId}/test")
-    public String xx(@PathVariable String ingredientId){
-        return "TEST";
-    }
-
     @PostMapping
-    public String addIngredient(){
+    public String addIngredient(@Valid @RequestBody IngredientDto ingredientDto){
+        System.out.println(ingredientDto.toString());
         return "Post ingredient";
-
     }
 
     @PutMapping("{ingredientId}")
