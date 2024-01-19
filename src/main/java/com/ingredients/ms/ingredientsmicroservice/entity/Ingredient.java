@@ -1,6 +1,6 @@
 package com.ingredients.ms.ingredientsmicroservice.entity;
 
-import com.ingredients.ms.ingredientsmicroservice.util.Unit;
+import com.ingredients.ms.ingredientsmicroservice.util.enums.Unit;
 import jakarta.persistence.*;
 import lombok.Data;
 

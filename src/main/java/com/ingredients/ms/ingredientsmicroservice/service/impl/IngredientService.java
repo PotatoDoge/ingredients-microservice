@@ -5,6 +5,7 @@ import com.ingredients.ms.ingredientsmicroservice.entity.Ingredient;
 import com.ingredients.ms.ingredientsmicroservice.repository.IngredientRepository;
 import com.ingredients.ms.ingredientsmicroservice.response.exception.NotFoundInDatabase;
 import com.ingredients.ms.ingredientsmicroservice.service.BaseEntityService;
+import com.ingredients.ms.ingredientsmicroservice.util.mapper.IngredientMapper;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -17,9 +18,12 @@ import java.util.List;
 public class IngredientService implements BaseEntityService<Ingredient, IngredientDto> {
 
     private final IngredientRepository ingredientRepository;
+    private final IngredientMapper ingredientMapper;
 
     @Override
-    public Ingredient save(IngredientDto entity) {
+    public Ingredient save(IngredientDto ingredientDto) {
+        Ingredient mappedIngredient = ingredientMapper.mapDtoToEntity(ingredientDto);
+        // generate code
         return null;
     }
 
@@ -31,7 +35,6 @@ public class IngredientService implements BaseEntityService<Ingredient, Ingredie
             throw new NotFoundInDatabase("Ingredient not found with that code in the database");
         }
         log.info("Ingredient found with code:{}", id);
-
         return ingredient;
     }
 
