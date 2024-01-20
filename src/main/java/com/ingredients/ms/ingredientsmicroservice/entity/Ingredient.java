@@ -10,10 +10,6 @@ import java.math.BigDecimal;
 @Data
 public class Ingredient {
 
-
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
     @Id
     private String ingredientCode;
 

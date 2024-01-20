@@ -6,6 +6,7 @@ import com.ingredients.ms.ingredientsmicroservice.response.HttpResponse;
 import com.ingredients.ms.ingredientsmicroservice.service.impl.IngredientService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import static java.time.LocalTime.now;
@@ -40,9 +41,13 @@ public class IngredientsController {
     }
 
     @PostMapping
-    public String addIngredient(@Valid @RequestBody IngredientDto ingredientDto){
-        Ingredient ingredient = ingredientService.save(ingredientDto);
-        return "Post ingredient";
+    public ResponseEntity<HttpResponse> addIngredient(@Valid @RequestBody IngredientDto ingredientDto){
+        HttpResponse response = HttpResponse.
+                builder()
+                .data(of("ingredient", ingredientService.save(ingredientDto)))
+                .timestamp(now().toString())
+                .build();
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
     @PutMapping("{ingredientId}")

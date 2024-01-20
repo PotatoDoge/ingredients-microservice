@@ -22,9 +22,9 @@ public class IngredientService implements BaseEntityService<Ingredient, Ingredie
 
     @Override
     public Ingredient save(IngredientDto ingredientDto) {
-        Ingredient mappedIngredient = ingredientMapper.mapDtoToEntity(ingredientDto);
-        // generate code
-        return null;
+        Ingredient ingredient = ingredientMapper.mapDtoToEntity(ingredientDto);
+        generateCode(ingredient);
+        return ingredientRepository.save(ingredient);
     }
 
     @Override
@@ -57,5 +57,9 @@ public class IngredientService implements BaseEntityService<Ingredient, Ingredie
     @Override
     public Ingredient update(Long id, IngredientDto entity) {
         return null;
+    }
+
+    private void generateCode(Ingredient ingredient){
+        ingredient.setIngredientCode("New code");
     }
 }
