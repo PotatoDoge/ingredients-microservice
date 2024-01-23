@@ -20,6 +20,8 @@ public class IngredientDto {
     @NotNull(message = "Price should not be null")
     private BigDecimal price;
 
+    private String store;
+
     @NotNull(message = "Unit must not be null")
     private Unit unit;
 

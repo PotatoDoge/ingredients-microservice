@@ -20,6 +20,8 @@ public class Ingredient {
 
     private BigDecimal price;
 
+    private String store;
+
     @Enumerated(EnumType.STRING)
     private Unit unit;
 
