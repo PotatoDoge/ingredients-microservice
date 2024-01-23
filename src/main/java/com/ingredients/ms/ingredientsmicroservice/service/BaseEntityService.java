@@ -6,7 +6,7 @@ public interface BaseEntityService <T, D> {
 
     T save(D entity);
 
-    T findById(String id);
+    T findById(Long id);
 
     Iterable<T> findAll();
 

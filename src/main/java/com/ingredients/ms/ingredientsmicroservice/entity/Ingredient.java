@@ -11,7 +11,8 @@ import java.math.BigDecimal;
 public class Ingredient {
 
     @Id
-    private String ingredientCode;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     private String name;
 

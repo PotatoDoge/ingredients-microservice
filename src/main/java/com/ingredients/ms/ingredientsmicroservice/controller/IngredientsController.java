@@ -1,7 +1,6 @@
 package com.ingredients.ms.ingredientsmicroservice.controller;
 
 import com.ingredients.ms.ingredientsmicroservice.dto.IngredientDto;
-import com.ingredients.ms.ingredientsmicroservice.entity.Ingredient;
 import com.ingredients.ms.ingredientsmicroservice.response.HttpResponse;
 import com.ingredients.ms.ingredientsmicroservice.service.impl.IngredientService;
 import jakarta.validation.Valid;
@@ -31,7 +30,7 @@ public class IngredientsController {
     }
 
     @GetMapping("{ingredientId}")
-    public ResponseEntity<HttpResponse> getIngredient(@PathVariable String ingredientId){
+    public ResponseEntity<HttpResponse> getIngredient(@PathVariable Long ingredientId){
         HttpResponse response = HttpResponse.
                 builder()
                 .data(of("ingredient",ingredientService.findById(ingredientId)))

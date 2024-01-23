@@ -11,6 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Random;
 
 @Service
 @AllArgsConstructor
@@ -23,13 +24,12 @@ public class IngredientService implements BaseEntityService<Ingredient, Ingredie
     @Override
     public Ingredient save(IngredientDto ingredientDto) {
         Ingredient ingredient = ingredientMapper.mapDtoToEntity(ingredientDto);
-        generateCode(ingredient);
         return ingredientRepository.save(ingredient);
     }
 
     @Override
-    public Ingredient findById(String id) {
-        Ingredient ingredient = ingredientRepository.findByIngredientCode(id);
+    public Ingredient findById(Long id) {
+        Ingredient ingredient = ingredientRepository.findById(id).orElse(null);
         if(ingredient == null){
             log.info("Ingredient not found with code:{}", id);
             throw new NotFoundInDatabase("Ingredient not found with that code in the database");
@@ -51,15 +51,10 @@ public class IngredientService implements BaseEntityService<Ingredient, Ingredie
 
     @Override
     public void delete(Long id) {
-
     }
 
     @Override
     public Ingredient update(Long id, IngredientDto entity) {
         return null;
-    }
-
-    private void generateCode(Ingredient ingredient){
-        ingredient.setIngredientCode("New code");
     }
 }
