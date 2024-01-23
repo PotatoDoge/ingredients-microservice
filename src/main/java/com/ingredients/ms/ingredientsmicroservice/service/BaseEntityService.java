@@ -2,7 +2,7 @@ package com.ingredients.ms.ingredientsmicroservice.service;
 
 import com.ingredients.ms.ingredientsmicroservice.entity.Ingredient;
 
-public interface BaseEntityService <T extends Ingredient, D> {
+public interface BaseEntityService <T, D> {
 
     T save(D entity);
 
