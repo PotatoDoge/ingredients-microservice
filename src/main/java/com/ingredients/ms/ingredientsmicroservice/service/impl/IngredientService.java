@@ -31,8 +31,8 @@ public class IngredientService implements BaseEntityService<Ingredient, Ingredie
     public Ingredient findById(Long id) {
         Ingredient ingredient = ingredientRepository.findById(id).orElse(null);
         if(ingredient == null){
-            log.info("Ingredient not found with code:{}", id);
-            throw new NotFoundInDatabase("Ingredient not found with that code in the database");
+            log.info("Ingredient not found with id: {}", id);
+            throw new NotFoundInDatabase("Ingredient not found with that id in the database");
         }
         log.info("Ingredient found with code:{}", id);
         return ingredient;
@@ -51,7 +51,13 @@ public class IngredientService implements BaseEntityService<Ingredient, Ingredie
 
     @Override
     public void delete(Long id) {
-        // add logic to delete ingredient
+        Ingredient ingredient = ingredientRepository.findById(id).orElse(null);
+        if(ingredient == null){
+            log.info("Ingredient not found with id: {}", id);
+            throw new NotFoundInDatabase("Ingredient not found with that id in the database");
+        }
+        ingredientRepository.deleteById(id);
+        log.info("Ingredient with ID: {} was deleted successfully",id);
     }
 
     @Override
