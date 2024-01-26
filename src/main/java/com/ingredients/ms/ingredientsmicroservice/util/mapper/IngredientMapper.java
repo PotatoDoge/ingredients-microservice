@@ -24,5 +24,4 @@ public class IngredientMapper {
         ingredientDto.setUnit(ingredient.getUnit());
         return ingredientDto;
     }
-
 }

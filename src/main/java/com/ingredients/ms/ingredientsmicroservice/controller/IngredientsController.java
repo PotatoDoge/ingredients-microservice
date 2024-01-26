@@ -50,8 +50,13 @@ public class IngredientsController {
     }
 
     @PutMapping("{ingredientId}")
-    public String updateIngredient(@PathVariable String ingredientId){
-        return "Update ingredient";
+    public ResponseEntity<HttpResponse> updateIngredient(@PathVariable Long ingredientId, @Valid @RequestBody IngredientDto ingredientDto){
+        HttpResponse response = HttpResponse.
+                builder()
+                .data(of("ingredient", ingredientService.update(ingredientId,ingredientDto)))
+                .timestamp(now().toString())
+                .build();
+        return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
     @DeleteMapping("{ingredientId}")

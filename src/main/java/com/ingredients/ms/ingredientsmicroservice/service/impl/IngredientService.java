@@ -61,7 +61,16 @@ public class IngredientService implements BaseEntityService<Ingredient, Ingredie
     }
 
     @Override
-    public Ingredient update(Long id, IngredientDto entity) {
-        return null;
+    public Ingredient update(Long id, IngredientDto ingredientDto) {
+        Ingredient ingredient = ingredientRepository.findById(id).orElse(null);
+        if(ingredient == null){
+            log.info("Ingredient not found with id: {}", id);
+            throw new NotFoundInDatabase("Ingredient not found with that id in the database");
+        }
+        Ingredient toBeUpdated = ingredientMapper.mapDtoToEntity(ingredientDto);
+        toBeUpdated.setId(id);
+        Ingredient updatedIngredient = ingredientRepository.save(toBeUpdated);
+        log.info("Ingredient with ID:{} was updated successfully",id);
+        return updatedIngredient;
     }
 }
