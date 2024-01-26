@@ -51,6 +51,7 @@ public class IngredientService implements BaseEntityService<Ingredient, Ingredie
 
     @Override
     public void delete(Long id) {
+        // add logic to delete ingredient
     }
 
     @Override

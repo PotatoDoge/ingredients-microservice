@@ -55,8 +55,14 @@ public class IngredientsController {
     }
 
     @DeleteMapping("{ingredientId}")
-    public String deleteIngredient(@PathVariable String ingredientId){
-        return "Delete ingredient";
+    public ResponseEntity<HttpResponse> deleteIngredient(@PathVariable Long ingredientId){
+        ingredientService.delete(ingredientId);
+        HttpResponse response = HttpResponse.
+                builder()
+                .timestamp(now().toString())
+                .message("Ingredient deleted!")
+                .build();
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).body(response);
     }
 
 }
