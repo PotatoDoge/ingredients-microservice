@@ -18,3 +18,7 @@ spring:
         format_sql: true
     database: postgresql
     database-platform: org.hibernate.dialect.PostgreSQLDialect
+
+external:
+  auth:
+    url: http://localhost:8080/tokenAuth/authenticate
