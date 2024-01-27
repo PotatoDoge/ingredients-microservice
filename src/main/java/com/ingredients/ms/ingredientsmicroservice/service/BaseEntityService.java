@@ -8,7 +8,7 @@ public interface BaseEntityService <T, D> {
 
     T findById(Long id);
 
-    Iterable<T> findAll();
+    Iterable<T> findAll(String token);
 
     void delete(Long id);
 

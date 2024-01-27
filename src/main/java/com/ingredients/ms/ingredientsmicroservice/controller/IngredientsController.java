@@ -20,10 +20,10 @@ public class IngredientsController {
     private final IngredientService ingredientService;
 
     @GetMapping
-    public ResponseEntity<HttpResponse> getIngredients(){
+    public ResponseEntity<HttpResponse> getIngredients(@RequestHeader("Authorization") String token){
         HttpResponse response = HttpResponse.
                 builder()
-                .data(of("ingredients",ingredientService.findAll()))
+                .data(of("ingredients",ingredientService.findAll(token)))
                 .timestamp(now().toString())
                 .build();
         return ResponseEntity.ok(response);

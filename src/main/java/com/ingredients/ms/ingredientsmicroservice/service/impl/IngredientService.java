@@ -1,5 +1,6 @@
 package com.ingredients.ms.ingredientsmicroservice.service.impl;
 
+import com.ingredients.ms.ingredientsmicroservice.auth.ExternalAuthenticationService;
 import com.ingredients.ms.ingredientsmicroservice.dto.IngredientDto;
 import com.ingredients.ms.ingredientsmicroservice.entity.Ingredient;
 import com.ingredients.ms.ingredientsmicroservice.repository.IngredientRepository;
@@ -11,7 +12,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Random;
 
 @Service
 @AllArgsConstructor
@@ -20,6 +20,7 @@ public class IngredientService implements BaseEntityService<Ingredient, Ingredie
 
     private final IngredientRepository ingredientRepository;
     private final IngredientMapper ingredientMapper;
+    private final ExternalAuthenticationService authenticationService;
 
     @Override
     public Ingredient save(IngredientDto ingredientDto) {
@@ -39,7 +40,8 @@ public class IngredientService implements BaseEntityService<Ingredient, Ingredie
     }
 
     @Override
-    public Iterable<Ingredient> findAll() {
+    public Iterable<Ingredient> findAll(String token) {
+        boolean isAuthenticated = authenticationService.isAuthenticated(token);
         List<Ingredient> ingredients = ingredientRepository.findAll();
         if(ingredients.isEmpty()){
             log.info("No ingredients found in database");
