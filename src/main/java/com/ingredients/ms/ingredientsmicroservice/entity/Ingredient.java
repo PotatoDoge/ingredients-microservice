@@ -16,13 +16,7 @@ public class Ingredient {
 
     private String name;
 
-    private int quantity;
+    private String notes;
 
-    private BigDecimal price;
-
-    private String store;
-
-    @Enumerated(EnumType.STRING)
-    private Unit unit;
 
 }

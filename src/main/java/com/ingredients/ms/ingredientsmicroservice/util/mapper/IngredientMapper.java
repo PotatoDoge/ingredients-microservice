@@ -10,18 +10,14 @@ public class IngredientMapper {
     public Ingredient mapDtoToEntity(IngredientDto ingredientDto) {
         Ingredient ingredient = new Ingredient();
         ingredient.setName(ingredientDto.getName());
-        ingredient.setQuantity(ingredientDto.getQuantity());
-        ingredient.setPrice(ingredientDto.getPrice());
-        ingredient.setUnit(ingredientDto.getUnit());
+        ingredient.setNotes(ingredientDto.getNotes());
         return ingredient;
     }
 
     public IngredientDto mapEntityToDto(Ingredient ingredient) {
         IngredientDto ingredientDto = new IngredientDto();
         ingredientDto.setName(ingredient.getName());
-        ingredientDto.setQuantity(ingredient.getQuantity());
-        ingredientDto.setPrice(ingredient.getPrice());
-        ingredientDto.setUnit(ingredient.getUnit());
+        ingredient.setNotes(ingredientDto.getNotes());
         return ingredientDto;
     }
 }
