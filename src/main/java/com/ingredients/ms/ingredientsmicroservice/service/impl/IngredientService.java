@@ -24,13 +24,17 @@ public class IngredientService implements BaseEntityService<Ingredient, Ingredie
     private final ExternalAuthenticationService authenticationService;
 
     @Override
-    public Ingredient save(IngredientDto ingredientDto) {
+    public Ingredient save(IngredientDto ingredientDto, String token) {
+        boolean isAuthenticated = authenticationService.authenticateToken(token);
+        if(!isAuthenticated){
+            throw new UnauthorizedUser("Unauthorized user!");
+        }
         Ingredient ingredient = ingredientMapper.mapDtoToEntity(ingredientDto);
         return ingredientRepository.save(ingredient);
     }
 
     @Override
-    public Ingredient findById(Long id) {
+    public Ingredient findById(Long id, String token) {
         Ingredient ingredient = ingredientRepository.findById(id).orElse(null);
         if(ingredient == null){
             log.info("Ingredient not found with id: {}", id);
@@ -56,7 +60,7 @@ public class IngredientService implements BaseEntityService<Ingredient, Ingredie
     }
 
     @Override
-    public void delete(Long id) {
+    public void delete(Long id, String token) {
         Ingredient ingredient = ingredientRepository.findById(id).orElse(null);
         if(ingredient == null){
             log.info("Ingredient not found with id: {}", id);
@@ -67,7 +71,7 @@ public class IngredientService implements BaseEntityService<Ingredient, Ingredie
     }
 
     @Override
-    public Ingredient update(Long id, IngredientDto ingredientDto) {
+    public Ingredient update(Long id, IngredientDto ingredientDto, String token) {
         Ingredient ingredient = ingredientRepository.findById(id).orElse(null);
         if(ingredient == null){
             log.info("Ingredient not found with id: {}", id);

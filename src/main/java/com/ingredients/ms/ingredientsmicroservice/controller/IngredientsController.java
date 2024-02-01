@@ -30,38 +30,38 @@ public class IngredientsController {
     }
 
     @GetMapping("{ingredientId}")
-    public ResponseEntity<HttpResponse> getIngredient(@PathVariable Long ingredientId){
+    public ResponseEntity<HttpResponse> getIngredient(@PathVariable Long ingredientId, @RequestHeader("Authorization") String token){
         HttpResponse response = HttpResponse.
                 builder()
-                .data(of("ingredient",ingredientService.findById(ingredientId)))
+                .data(of("ingredient",ingredientService.findById(ingredientId, token)))
                 .timestamp(now().toString())
                 .build();
         return ResponseEntity.ok(response);
     }
 
     @PostMapping
-    public ResponseEntity<HttpResponse> addIngredient(@Valid @RequestBody IngredientDto ingredientDto){
+    public ResponseEntity<HttpResponse> addIngredient(@Valid @RequestBody IngredientDto ingredientDto, @RequestHeader("Authorization") String token){
         HttpResponse response = HttpResponse.
                 builder()
-                .data(of("ingredient", ingredientService.save(ingredientDto)))
+                .data(of("ingredient", ingredientService.save(ingredientDto, token)))
                 .timestamp(now().toString())
                 .build();
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
     @PutMapping("{ingredientId}")
-    public ResponseEntity<HttpResponse> updateIngredient(@PathVariable Long ingredientId, @Valid @RequestBody IngredientDto ingredientDto){
+    public ResponseEntity<HttpResponse> updateIngredient(@PathVariable Long ingredientId, @Valid @RequestBody IngredientDto ingredientDto, @RequestHeader("Authorization") String token){
         HttpResponse response = HttpResponse.
                 builder()
-                .data(of("ingredient", ingredientService.update(ingredientId,ingredientDto)))
+                .data(of("ingredient", ingredientService.update(ingredientId,ingredientDto, token)))
                 .timestamp(now().toString())
                 .build();
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
     @DeleteMapping("{ingredientId}")
-    public ResponseEntity<HttpResponse> deleteIngredient(@PathVariable Long ingredientId){
-        ingredientService.delete(ingredientId);
+    public ResponseEntity<HttpResponse> deleteIngredient(@PathVariable Long ingredientId, @RequestHeader("Authorization") String token){
+        ingredientService.delete(ingredientId, token);
         HttpResponse response = HttpResponse.
                 builder()
                 .timestamp(now().toString())
