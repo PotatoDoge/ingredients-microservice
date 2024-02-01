@@ -1,6 +1,7 @@
 package com.ingredients.ms.ingredientsmicroservice.response;
 
 import com.ingredients.ms.ingredientsmicroservice.response.exception.NotFoundInDatabase;
+import com.ingredients.ms.ingredientsmicroservice.response.exception.UnauthorizedUser;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -43,6 +44,16 @@ public class GlobalExceptionHandler {
                 .message(ex.getMessage())
                 .build();
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
+    }
+
+    @ExceptionHandler(UnauthorizedUser.class)
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
+    public ResponseEntity<HttpResponse> handleNotFoundInDatabase(UnauthorizedUser ex) {
+        HttpResponse response = HttpResponse.builder()
+                .timestamp(now().toString())
+                .message(ex.getMessage())
+                .build();
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response);
     }
 
 }
