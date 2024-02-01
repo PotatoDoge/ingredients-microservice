@@ -16,7 +16,7 @@ public class ExternalAuthenticationService {
         this.restTemplate = restTemplate;
     }
 
-    public boolean isAuthenticated(String authToken) {
+    public boolean authenticateToken(String authToken) {
         HttpHeaders headers = new HttpHeaders();
         headers.set("Authorization", authToken);
         int responseStatusCode = 0;

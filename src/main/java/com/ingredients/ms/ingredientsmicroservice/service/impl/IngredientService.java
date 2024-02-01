@@ -5,6 +5,7 @@ import com.ingredients.ms.ingredientsmicroservice.dto.IngredientDto;
 import com.ingredients.ms.ingredientsmicroservice.entity.Ingredient;
 import com.ingredients.ms.ingredientsmicroservice.repository.IngredientRepository;
 import com.ingredients.ms.ingredientsmicroservice.response.exception.NotFoundInDatabase;
+import com.ingredients.ms.ingredientsmicroservice.response.exception.UnauthorizedUser;
 import com.ingredients.ms.ingredientsmicroservice.service.BaseEntityService;
 import com.ingredients.ms.ingredientsmicroservice.util.mapper.IngredientMapper;
 import lombok.AllArgsConstructor;
@@ -41,7 +42,10 @@ public class IngredientService implements BaseEntityService<Ingredient, Ingredie
 
     @Override
     public Iterable<Ingredient> findAll(String token) {
-        boolean isAuthenticated = authenticationService.isAuthenticated(token);
+        boolean isAuthenticated = authenticationService.authenticateToken(token);
+        if(!isAuthenticated){
+            throw new UnauthorizedUser("Unauthorized user!");
+        }
         List<Ingredient> ingredients = ingredientRepository.findAll();
         if(ingredients.isEmpty()){
             log.info("No ingredients found in database");
