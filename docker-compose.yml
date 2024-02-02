@@ -11,6 +11,7 @@ services:
       - db-url=jdbc:postgresql://ingredients-db:5432/ingredients_database
       - db-username=postgres
       - db-password=postgres
+      - external-auth-url=http://jwt-user-auth:8080/tokenAuth/authenticate
     depends_on:
       - db
     restart: always
